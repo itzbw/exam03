@@ -5,11 +5,11 @@
 
 void ft_putstr_len (char *str, int *len)
 {
-    
+    int i = 0;
     if(!str)
         str = "(null)";
-    while (*str)
-        *len += write(1, str++, 1);
+    while (str[i])
+        *len += write(1, &str[i++], 1);
 }
 
 
@@ -30,26 +30,27 @@ void ft_put_digit_len (long long nbr, int base, int *len)
 
 int ft_printf (const char *format, ...)
 {
+    int i = 0;
     int len = 0;
     va_list ptr;
 
     va_start(ptr,format); // (ap, param)
-    while (*format)
+    while (format[i])
     {
-        if(*format != '%')
+        if(format[i] != '%')
             len += write (1, format, 1);
-        else if ((*format == '%') && *(format + 1))
+        else if ((format[i] == '%') && format[i + 1])
         {
-            format++;
-            if (*format == 's')
+            i++;
+            if (format[i] == 's')
                 ft_putstr_len(va_arg(ptr, char *), &len);
-            else if (*format == 'x')
+            else if (format[i] == 'x')
                 ft_put_digit_len ((long long)va_arg(ptr, unsigned int), 16, &len);
-            else if (*format == 'd')
+            else if (format[i] == 'd')
                 ft_put_digit_len ((long long)va_arg(ptr, int), 10, &len);
 
         }
-        format++;
+        i++;
     }
     return (va_end(ptr), len);
 
