@@ -36,9 +36,9 @@ char	*get_next_line(int fd)
 	int		bytes;
 	int		i = 0;
 	char	character;
-	char	buffer[1000000];
+	char	buffer[BUFFER_SIZE+1];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 
 	bytes = read(fd, &character, 1);
@@ -55,6 +55,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 
 	buffer[i] = '\0';
-    
+
 	return (ft_strdup(buffer));
 }
