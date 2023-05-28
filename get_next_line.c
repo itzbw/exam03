@@ -1,3 +1,6 @@
+// compile with -D BUFFERSIZE= [number]
+// avoid to define the buffer size in .c file
+
 #include <unistd.h>
 #include <stdlib.h>
 
