@@ -30,27 +30,26 @@ void ft_put_digit_len (long long nbr, int base, int *len)
 
 int ft_printf (const char *format, ...)
 {
-    int i = 0;
     int len = 0;
     va_list ptr;
 
     va_start(ptr,format); // (ap, param)
-    while (format[i])
+    while (*format)
     {
-        if(format[i] != '%')
-            len += write (1, format, 1);
-        else if ((format[i] == '%') && format[i + 1])
+        if ((*format == '%') && *(format +1))
         {
-            i++;
-            if (format[i] == 's')
+            format++;
+            if (*format == 's')
                 ft_putstr_len(va_arg(ptr, char *), &len);
-            else if (format[i] == 'x')
-                ft_put_digit_len ((long long)va_arg(ptr, unsigned int), 16, &len);
-            else if (format[i] == 'd')
-                ft_put_digit_len ((long long)va_arg(ptr, int), 10, &len);
+            else if (*format == 'x')
+                ft_put_digit_len ((long long int)va_arg(ptr, unsigned int), 16, &len);
+            else if (*format == 'd')
+                ft_put_digit_len ((long long int)va_arg(ptr, int), 10, &len);
 
         }
-        i++;
+        else
+            len += write (1, format, 1);
+        format++;
     }
     return (va_end(ptr), len);
 
