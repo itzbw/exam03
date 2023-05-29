@@ -36,9 +36,9 @@ char	*get_next_line(int fd)
 	int		bytes;
 	int		i = 0;
 	char	character;
-	char	buffer[BUFFER_SIZE+1];
+	char	buffer[1000000];
 
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 
 	bytes = read(fd, &character, 1);
